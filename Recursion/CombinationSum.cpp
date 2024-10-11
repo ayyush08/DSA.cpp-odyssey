@@ -76,7 +76,7 @@ int main(){
         }
         cout<<"]"<<endl;
     }
-    return 0;asd
+    return 0;
 }
 
 // Time Complexity: O(2^N)
