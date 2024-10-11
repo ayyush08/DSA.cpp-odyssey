@@ -1,0 +1,10 @@
+{
+    "pieces.cloudCapabilities": "Blended",
+    "pieces.telemetry": true,
+    "files.associations": {
+        "*.ejs": "html",
+        "CLASS.C": "cpp",
+        "iosfwd": "cpp",
+        "fstream": "cpp"
+    }
+}
