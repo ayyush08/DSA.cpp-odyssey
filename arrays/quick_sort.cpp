@@ -1,46 +1,76 @@
 #include <bits/stdc++.h>
-#include <algorithm>
 using namespace std;
-int partition(int arr[], int low, int high)
-{
-    int pivot = arr[high];
-    int i = low;
-    int j = high;
-    while (i < j)
-    {
-        while (arr[i] <= pivot && i <= high - 1)
-            i++;
-        while (arr[j] > pivot && j >= low + 1)
-            j--;
-        if (i < j)
-            swap(arr[i], arr[j]);
+
+class SolutionWithArray {
+public:
+    int partition(int nums[], int low, int high) {
+        int i = low, j = high;
+        int pivot = nums[low];
+        while (i < j) {
+            while (nums[i] <= pivot && i <= high - 1) i++;
+            while (nums[j] > pivot && j >= low + 1) j--;
+            if (i < j) swap(nums[i], nums[j]);
+        }
+        swap(nums[low], nums[j]);
+        return j;
     }
-    swap(arr[low], arr[j]);
-    return j;
-    // Your code here
-}
-void quickSort(int arr[], int low, int high)
-{
-    // code here
-    if (low<high)
-    {
-        int parInd = partition(arr, low, high);
-        quickSort(arr, low, parInd - 1);
-        quickSort(arr, parInd + 1, high);
+
+    void quickSortHelper(int nums[], int low, int high) {
+        if (low < high) {
+            int partInd = partition(nums, low, high);
+            quickSortHelper(nums, low, partInd - 1);
+            quickSortHelper(nums, partInd + 1, high);
+        }
     }
-}
+
+    void quickSort(int nums[], int n) {
+        quickSortHelper(nums, 0, n - 1);
+    }
+};
+
+class Solution {
+public:
+    int partition(vector<int>&nums,int low, int high){
+        int i = low,j=high;
+        int pivot = nums[low];
+        while(i<j){
+            while(nums[i]<=pivot && i<=high-1) i++;
+            while(nums[j]>pivot && j>=low+1) j--;
+            if(i<j) swap(nums[i],nums[j]);
+        }
+        swap(nums[low],nums[j]);
+        return j;
+    }
+    void quickSortHelper(vector<int>&nums,int low,int high){
+        if(low<high){
+
+        int partInd = partition(nums,low,high);
+        quickSortHelper(nums,low,partInd-1);
+        quickSortHelper(nums,partInd+1,high);
+        }
+    }
+    vector<int> quickSort(vector<int>& nums) {
+        int n = nums.size();
+        quickSortHelper(nums,0,n-1);
+        return nums;
+    }
+};
 
 
-
-int main()
-{
-    int n;
-    cin >> n;
-    int arr[n];
-    for (int i = 0; i < n; i++)
-        cin >> arr[i];
-    quickSort(arr, 0, n - 1);
-    for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
-return 0;
+int main(){
+    Solution s;
+    vector<int> nums = {3,2,1,5,6,4};
+    vector<int> res = s.quickSort(nums);
+    // for(auto x:res){
+    //     cout<<x<<" ";
+    // }
+    cout<<endl;
+    SolutionWithArray s1;
+    int arr[] = {10,9,8,7,6,5,4,3,2,1};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    s1.quickSort(arr,n);
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
+    return 0;
 }
