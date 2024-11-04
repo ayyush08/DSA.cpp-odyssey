@@ -191,6 +191,11 @@ int main()
     cout << "Preorder traversal of the constructed AVL tree is \n";
     preOrder(root);
 
+    root = deleteNode(root, 20);
+
+    cout << "\nPreorder traversal after deletion of 20 \n";
+    preOrder(root);
+
 
     return 0;
 }
