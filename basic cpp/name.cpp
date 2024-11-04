@@ -17,7 +17,6 @@ int wordCount(string sent){
             count++;
         }
     }
-
     return (count);
 }
 
