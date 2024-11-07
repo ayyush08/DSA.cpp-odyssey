@@ -41,7 +41,7 @@ void heapifyDown(int i){
     }
     if(largest != i){
         swap(heap[i], heap[largest]);
-        heapifyDownD(largest);
+        heapifyDown(largest);
     }
 }
 void deleteRoot(){
