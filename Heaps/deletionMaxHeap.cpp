@@ -30,7 +30,21 @@ void insert(int value){
 }
 
 void heapifyDown(int i){
-    int left = 2*i + 1;
+    // int left = 2*i + 1;
+    // int right = 2*i + 2;
+    // int largest = i;
+    // if(left < heapSize && heap[left] > heap[largest]){
+    //     largest = left;
+    // }
+    // if(right < heapSize && heap[right] > heap[largest]){
+    //     largest = right;
+    // }
+    // if(largest != i){
+    //     swap(heap[i], heap[largest]);
+    //     heapifyDown(largest);
+    // }
+    while(2*i+1<heapSize){
+        int left = 2*i + 1;
     int right = 2*i + 2;
     int largest = i;
     if(left < heapSize && heap[left] > heap[largest]){
@@ -39,9 +53,13 @@ void heapifyDown(int i){
     if(right < heapSize && heap[right] > heap[largest]){
         largest = right;
     }
-    if(largest != i){
+    if(largest!=i){
         swap(heap[i], heap[largest]);
-        heapifyDown(largest);
+        i = largest;
+    }
+    else{
+        break;
+    }
     }
 }
 void deleteRoot(){
