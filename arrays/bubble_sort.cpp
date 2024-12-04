@@ -34,3 +34,6 @@ int main()
     }
 return 0;
 }
+
+// Time Complexity: O(n^2) - because of the nested loops
+// Space Complexity: O(1) - no extra space is used
