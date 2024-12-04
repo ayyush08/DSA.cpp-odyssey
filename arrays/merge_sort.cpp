@@ -58,3 +58,6 @@ int main()
         cout << arr[i] << " ";
 return 0;
 }
+
+// Time Complexity: O(nlogn) - because of the divide and conquer approach
+// Space Complexity: O(n) - extra space is used for the temporary array

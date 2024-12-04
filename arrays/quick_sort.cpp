@@ -74,3 +74,6 @@ int main(){
     }
     return 0;
 }
+
+// Time Complexity: O(nlogn) - because of the partitioning and recursive calls
+// Space Complexity: O(1) - no extra space is used
