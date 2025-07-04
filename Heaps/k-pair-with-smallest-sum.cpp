@@ -36,7 +36,7 @@ public:
         priority_queue<T, vector<T>, greater<T>> pq;
         set<pair<int, int>> st;
         vector<vector<int>> ans;
-        int m = nums1.size(), n = nums2.size();
+        int m = nums1.size(), n = nums2.size();w
         pq.push({nums1[0] + nums2[0], {0, 0}});
         st.insert({0, 0});
         for (int p = 0; p < k; p++)
