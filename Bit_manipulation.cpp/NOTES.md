@@ -77,3 +77,9 @@ __builtin_popcount(n)
 ## 9️⃣ For any integer appearning n times (a^a^a^...^a till n times)
 - **Result is a if n is odd, 0 if n is even:**
 ```
+
+## 1️⃣0️⃣ 2^n
+- **Calculate 2 raised to the power n:**
+```
+1 << n
+```
