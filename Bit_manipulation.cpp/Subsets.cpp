@@ -34,7 +34,7 @@ public:
             {
                 if ((i >> j) & 1) //If jth bit of i is set, then include nums[j] in the current subset, (if you right shift i by j and check if the last bit is set with & 1 and if it results in 1, then the jth bit is set else it is not set)
                 {
-                    sset.push_back(nums[j]);
+                    sset.push_back(nums[j]);    
                 }
             }
             sets.push_back(sset);
