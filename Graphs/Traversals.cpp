@@ -41,7 +41,7 @@ public:
         return dfs;
     }
 
-    vector<int> bfsOfGraph(int V, vector<int> adj[])
+    vector<int> bfsOfGraph(int V, vector<int> adj[]) //Bfs always considers the shortest path first
     {
         int visited[V] = {0};
         visited[0] = 1;
