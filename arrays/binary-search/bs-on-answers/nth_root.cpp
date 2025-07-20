@@ -5,7 +5,7 @@ int func(int mid, int n, int m)
     for (int i = 1; i <= n; i++)
     {
         ans *= mid;
-        if (ans > m)
+        if (ans > m) //avoid overflow for large values(automatically handles negative values as well as square root beyond range)
             return 2;
     }
     if (ans == m)
