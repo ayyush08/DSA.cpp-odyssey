@@ -1,3 +1,31 @@
+// Letter Combinations of a Phone Number
+// Given a string consisting of digits from 2 to 9 (inclusive). Return all possible letter combinations that the number can represent.
+
+// Mapping of digits to letters is given in first example.
+
+// Examples:
+// Input : digits = "34"
+
+// Output : [ "dg", "dh", "di", "eg", "eh", "ei", "fg", "fh", "fi" ]
+
+// Explanation : The 3 is mapped with "def" and 4 is mapped with "ghi".
+
+// So all possible combination by replacing the digits with characters are shown in output.
+
+
+// Input : digits = "3"
+
+// Output : [ "d", "e", "f" ]
+
+// Explanation : The 3 is mapped with "def".
+
+// Input : digits = "8"
+
+// Output:
+// [ "t", "u", "v" ]
+
+
+
 #include <bits/stdc++.h>
 using namespace std;
 

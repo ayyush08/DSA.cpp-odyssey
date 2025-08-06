@@ -48,7 +48,7 @@ public:
         {
             if (isPalindrome(s, partition, i))
             {
-                temp.push_back(s.substr(partition, i - partition + 1));
+                temp.push_back(s.substr(partition, i - partition + 1)); // take the substring from partition to i as already checked if it is a palindrome
                 func(i + 1, s, temp, ans);
                 temp.pop_back();
             }
