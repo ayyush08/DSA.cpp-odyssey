@@ -61,11 +61,11 @@ public:
             if (temp1)
                 temp1 = temp1->next;
             else
-                temp1 = headA;
+                temp1 = headB;
             if (temp2)
                 temp2 = temp2->next;
             else
-                temp2 = headB;
+                temp2 = headA;
         }
         return temp1;
     }
