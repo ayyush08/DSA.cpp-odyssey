@@ -33,7 +33,7 @@ struct ListNode
 };
 class Solution {
 public:
-    //BRUTE FORCE
+    //Iterative
     ListNode *reverseList(ListNode *head)
     {
         ListNode *temp = head;
@@ -66,8 +66,8 @@ public:
         head=reverseList(head);
         return head;
     }
-    //OPTIMIZED
-    int addHelper(ListNode* temp){
+    //Recursive
+    int addHelper(ListNode* temp){ 
         if(temp==NULL) return 1;
 
         int carry=addHelper(temp->next);
