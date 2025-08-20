@@ -34,6 +34,8 @@ A = A ^ B
 ```cpp
 bool isBitSet(int n, int i) {
         return (n & (1 << i)) != 0;
+        //OR
+        return (n >> i) & 1;
 }
 ```
 
@@ -147,5 +149,5 @@ int countSetBits(int n) {
 ```
 
 **Complexity**:
-- Time: O(K) where K is number of set bits
+- Time: O(K) where K is number of set bits (O(31) at max for 32-bit integers)
 - Space: O(1)

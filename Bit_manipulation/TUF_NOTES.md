@@ -75,11 +75,12 @@ string binaryToDecimal(string str) {
 | AND | & | Both 1 → 1 |
 | OR | \| | Any 1 → 1 |
 | XOR | ^ | Odd 1s → 1 |
-| NOT | ~ | Flips bits |
+| NOT | ~ | Flips bits | checks -ve after flipping, if yes then stores it's 2's complement otherwise stop
 
 ### 3.2 Shift Operators
 - Right Shift (>>): 13 >> 1 = 1101 → 0110 (6)
 - Left Shift (<<): 13 << 1 = 1101 → 11010 (26)
+
 
 ### 3.3 Examples
 ```
@@ -101,3 +102,15 @@ XOR: 13 ^ 7
         ----
         1010 (10)
 ```
+
+## Key Points:
+
+1.
+```cpp
+x >> k = x / 2^k
+x << k = x * 2^k
+```
+
+
+2. How are negative numbers represented in binary?
+The 31st bit is the sign bit. If it's 1, the number is negative.
