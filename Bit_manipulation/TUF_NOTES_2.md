@@ -151,3 +151,23 @@ int countSetBits(int n) {
 **Complexity**:
 - Time: O(K) where K is number of set bits (O(31) at max for 32-bit integers)
 - Space: O(1)
+
+
+## 9. Isolating the rightmost set bit
+
+**Description**: Isolate the rightmost set bit of a number.(Turn off all other bits and keep this bit)
+
+**Example**:
+- Given: N = 12 (1100)
+- Result: 12 & -12 = 4 (0100)
+
+**Code**:
+```cpp
+int isolateRightmostSetBit(int n) {
+        return n & -n;
+}
+```
+
+**Complexity**:
+- Time: O(1)
+- Space: O(1)
