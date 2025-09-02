@@ -68,7 +68,5 @@ public:
             r++;
         }
         return ans;
-
-        return ans;
     }
 };
