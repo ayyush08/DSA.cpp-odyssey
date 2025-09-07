@@ -80,3 +80,23 @@ public:
         return dp[n-1];
     }
 };
+
+// Space Optimization
+
+class Solution {
+public:
+    int frogJump(vector<int>& heights) {
+        int n = heights.size();
+        int prev=0;
+        int prev2 = 0;
+        for(int i=1;i<n;i++){
+            int oneStep = prev+abs(heights[i]-heights[i-1]);
+            int twoStep=INT_MAX;
+            if(i>1) twoStep = prev2+abs(heights[i]-heights[i-2]);
+            int curri = min(oneStep,twoStep);
+            prev2=prev;
+            prev=curri;
+        }
+        return prev;
+    }
+};
