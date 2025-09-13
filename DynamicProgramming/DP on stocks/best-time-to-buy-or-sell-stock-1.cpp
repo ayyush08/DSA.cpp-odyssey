@@ -39,7 +39,7 @@ private:
         }
         else
         {
-            int sell = prices[i]; //Single Transaction only
+            int sell = prices[i]; // Single Transaction only
             int dont_sell = buse(dp, prices, 0, i + 1);
             return dp[i][buyorsell] = max(sell, dont_sell);
         }
@@ -52,5 +52,22 @@ public:
         int n = prices.size();
         vector<vector<int>> dp(n, vector<int>(2, -1));
         return buse(dp, prices, 1, 0);
+    }
+};
+
+// Since its just a single transaction, we can also do it in O(1) space by keeping track of minimum price so far and maximum profit so far
+class Solution2
+{
+public:
+    int stockBuySell(vector<int> arr, int n)
+    {
+        int ans = 0;
+        int min_so_far = INT_MAX;
+        for (int price : arr)
+        {
+            min_so_far = min(min_so_far, price);
+            ans = max(ans, price - min_so_far);
+        }
+        return ans;
     }
 };

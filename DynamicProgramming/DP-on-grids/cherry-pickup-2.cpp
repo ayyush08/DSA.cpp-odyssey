@@ -130,3 +130,5 @@ public:
 // Time Complexity: O((N*M*M)*9), The outer nested loops run for (N*M*M) times and the inner two nested loops run for 9 times
 
 // Space Complexity:O(N*M*M), As an external array of size ‘N*M*M’ is used.
+
+//SPACE OPTIMIZATION - just use 2d array and remove the 'i' dimension with prev and curr like always

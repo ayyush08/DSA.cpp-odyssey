@@ -69,9 +69,7 @@ public:
     }
 };
 /*
-Summary:
-This code solves the "Best Time to Buy and Sell Stock II" problem using dynamic programming with memoization. 
-It recursively explores all possible buy/sell actions for each day, storing intermediate results in a DP table to avoid redundant calculations. 
-The function `maxProfit` initializes the DP table and starts the recursion, returning the maximum achievable profit.
+Time Complexity:O(n), where n is the size of the input array due to the memoization avoiding redundant calculations.
+Space Complexity:O(n), due to the dp table of size n*2 and the recursion stack space in the worst case.
 
 */
