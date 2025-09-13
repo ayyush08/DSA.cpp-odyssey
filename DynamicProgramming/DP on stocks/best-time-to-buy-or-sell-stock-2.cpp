@@ -28,7 +28,7 @@
 // 1 <= prices.length <= 3 * 104
 // 0 <= prices[i] <= 104
 
-//Intuition: we need to buy stock at days after ith day (includig ith day) and sell it at ith day, so we can buy stock at ith day and sell it at i+1th day, then buy it at i+2th day and sell it at i+3th day and so on. So we can just add all the profits of all the days where prices[i] < prices[i+1].
+// Intuition: we need to buy stock at days after ith day (includig ith day) and sell it at ith day, so we can buy stock at ith day and sell it at i+1th day, then buy it at i+2th day and sell it at i+3th day and so on. So we can just add all the profits of all the days where prices[i] < prices[i+1].
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -62,10 +62,10 @@ private:
 public:
     int maxProfit(vector<int> &prices)
     {
-            int n = prices.size();
-            vector<vector<int>> dp(n, vector<int>(2, -1));
+        int n = prices.size();
+        vector<vector<int>> dp(n, vector<int>(2, -1));
 
-            return buse(dp, prices, 1, 0);
+        return buse(dp, prices, 1, 0);
     }
 };
 /*
@@ -73,3 +73,72 @@ Time Complexity:O(n), where n is the size of the input array due to the memoizat
 Space Complexity:O(n), due to the dp table of size n*2 and the recursion stack space in the worst case.
 
 */
+
+// Tabulation
+
+class Solution2
+{
+public:
+    int stockBuySell(vector<int> arr, int n)
+    {
+        vector<vector<int>> dp(n + 1, vector<int>(2, 0));
+
+        // Base case: dp[n][0] = dp[n][1] = 0 already filled
+
+        for (int i = n - 1; i >= 0; i--)
+        {
+            for (int buyornot = 0; buyornot <= 1; buyornot++)
+            {
+                if (buyornot)
+                {
+                    int buy = -arr[i] + dp[i + 1][0];
+                    int dont_buy = dp[i + 1][1];
+                    dp[i][buyornot] = max(buy, dont_buy);
+                }
+                else
+                {
+                    int sell = arr[i] + dp[i + 1][1];
+                    int dont_sell = dp[i + 1][0];
+                    dp[i][buyornot] = max(sell, dont_sell);
+                }
+            }
+        }
+
+        return dp[0][1];
+    }
+};
+
+// Space Optimized - O(1) Space
+
+class Solution
+{
+public:
+    int stockBuySell(vector<int> arr, int n)
+    {
+        vector<int> ahead(2, 0), curr(2, 0); //0 for buy, 1 for sell
+
+        // Base case: ahead = {0,0} (i == n)
+
+        for (int i = n - 1; i >= 0; i--)
+        {
+            for (int buyornot = 0; buyornot <= 1; buyornot++)
+            {
+                if (buyornot)
+                {
+                    int buy = -arr[i] + ahead[0];
+                    int dont_buy = ahead[1];
+                    curr[buyornot] = max(buy, dont_buy);
+                }
+                else
+                {
+                    int sell = arr[i] + ahead[1];
+                    int dont_sell = ahead[0];
+                    curr[buyornot] = max(sell, dont_sell);
+                }
+            }
+            ahead = curr; // move one step back
+        }
+
+        return ahead[1]; 
+    }
+};

@@ -62,4 +62,38 @@ public:
     }
 };
 
-//Simply keep a state for transaction count k in the dp array, so that we can keep track of how many transactions we have done so far. The rest of the logic remains the same as in the previous problem. If transactions cross k we return 0, as we cannot do more than k transactions.
+// Simply keep a state for transaction count k in the dp array, so that we can keep track of how many transactions we have done so far. The rest of the logic remains the same as in the previous problem. If transactions cross k we return 0, as we cannot do more than k transactions.
+
+// Tabulation
+
+class Solution2
+{
+public:
+    int stockBuySell(vector<int> stocks, int n, int k)
+    {
+        vector<vector<vector<int>>> dp(
+            n + 1, vector<vector<int>>(2, vector<int>(k + 1, 0)));
+        for (int i = n - 1; i >= 0; i--)
+        {
+            for (int buyornot = 0; buyornot <= 1; buyornot++)
+            {
+                for (int cap = 1; cap <= k; cap++)
+                {
+                    if (buyornot)
+                    {
+                        int buy = -stocks[i] + dp[i + 1][0][cap];
+                        int dont_buy = dp[i + 1][1][cap];
+                        dp[i][buyornot][cap] = max(buy, dont_buy);
+                    }
+                    else
+                    {
+                        int sell = stocks[i] + dp[i + 1][1][cap - 1];
+                        int dont_sell = dp[i + 1][0][cap];
+                        dp[i][buyornot][cap] = max(sell, dont_sell);
+                    }
+                }
+            }
+        }
+        return dp[0][1][k];
+    }
+};
