@@ -65,7 +65,45 @@ public:
             }
         }
         return (target + sum >= 0 && target + sum <= 2 * sum)
-                    ? dp[n][target + sum]
-                    : 0;
+                   ? dp[n][target + sum]
+                   : 0;
+    }
+};
+
+// ANOTHER APPROACH  - if we notice carefully we can see that this problem can be converted to count of partitions with given difference problem.
+// Why? if we take all the elements with + sign in one subset and all the elements with - sign in another subset then the difference of sum of these two subsets should be equal to target. which means we need to find count of partitions with given difference.
+
+class Solution2
+{
+public:
+    int mod = 1e9 + 7;
+    int func(int i, int target, vector<vector<int>> &dp, vector<int> &nums)
+    {
+        if (i == 0)
+        {
+            if (nums[0] == 0 && target == 0)
+                return 2;
+            if (target == 0)
+                return 1;
+
+            return nums[i] == target;
+        }
+        if (dp[i][target] != -1)
+            return dp[i][target];
+        int notTake = func(i - 1, target, dp, nums);
+        int take = 0;
+        if (target >= nums[i])
+            take = func(i - 1, target - nums[i], dp, nums);
+
+        return dp[i][target] = (take + notTake) % mod;
+    }
+    int targetSum(int n, int target, vector<int> &nums)
+    {
+        int total = accumulate(nums.begin(), nums.end(), 0);
+        if ((total - target) < 0 || (total - target) & 1)
+            return 0;
+        int diff = (total - target) / 2;
+        vector<vector<int>> dp(n + 1, vector<int>(diff + 1, -1));
+        return func(n - 1, diff, dp, nums);
     }
 };
