@@ -25,6 +25,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Tabulation - can also give TLE for large inputs (10^4 or more)
 class Solution
 {
 public:
@@ -52,7 +53,7 @@ public:
     }
 };
 
-// Memoization
+// Memoization - can give TLE for large inputs
 
 class Solution
 {
@@ -80,5 +81,61 @@ public:
             ans = max(ans, func(i, nums, dp));
         }
         return ans;
+    }
+};
+
+// 2d DP
+
+class Solution
+{
+public:
+    int func(int i, int recent, vector<int> &nums, vector<vector<int>> &dp)
+    {
+        if (i == nums.size())
+            return 0;
+        if (dp[i][recent + 1] != -1)
+            return dp[i][recent + 1];
+
+        int notTake = func(i + 1, recent, nums, dp);
+        int take = 0;
+        if (recent == -1 || nums[i] > nums[recent])
+            take = 1 + func(i + 1, i, nums, dp);
+
+        return dp[i][recent + 1] = max(take, notTake);
+    }
+    int LIS(vector<int> &nums)
+    {
+        int n = nums.size();
+        vector<vector<int>> dp(n, vector<int>(n + 1, -1));
+        return func(0, -1, nums, dp);
+    }
+};
+// gives runtime error for large inputs
+
+// Optimal - Works for all inputs
+// use binary search (lower_bound)
+
+class Solution
+{
+public:
+    int LIS(vector<int> &nums)
+    {
+        int n = nums.size();
+
+        vector<int> temp;
+
+        temp.push_back(nums[0]);
+        for (int i = 1; i < n; i++)
+        {
+            if (nums[i] > temp.back())
+                temp.push_back(nums[i]);
+            else
+            {
+                int toReplace = lower_bound(temp.begin(), temp.end(), nums[i]) - temp.begin();
+
+                temp[toReplace] = nums[i];
+            }
+        }
+        return temp.size();
     }
 };
