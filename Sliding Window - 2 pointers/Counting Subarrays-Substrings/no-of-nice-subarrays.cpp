@@ -37,7 +37,7 @@ public:
             sum += (nums[r] & 1);
             while (sum > goal)
             {
-                sum -= nums[l];
+                sum -= nums[l]%2;
                 l++;
             }
             ans += (r - l + 1);

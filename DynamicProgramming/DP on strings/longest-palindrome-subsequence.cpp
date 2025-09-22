@@ -21,7 +21,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 1. Top-down approach using recursion with memoization
+// 1. Top-down approach using recursion with memoization - O(n^2) time and O(n^2) space
 
 class Solution
 {
@@ -81,5 +81,37 @@ public:
             }
         }
         return dp[0][m - 1];
+    }
+};
+
+// 3. Space optimization - O(n^2) time and O(n) space
+
+class Solution
+{
+public:
+    int longestPalinSubseq(string s)
+    {
+        int n = s.size();
+        vector<vector<int>> dp(n, vector<int>(n, 0));
+        vector<int> curr(n, 0);
+        vector<int> next(n, 0);
+        int l = 0, r = n - 1;
+        for (int i = r; i >= 0; i--)
+        {
+            for (int j = i; j < n; j++)
+            {
+                if (s[i] == s[j])
+                {
+                    if (i == j)
+                        curr[j] = 1;
+                    else
+                        curr[j] = 2 + next[j - 1];
+                }
+                else
+                    curr[j] = max(curr[j - 1], next[j]);
+            }
+            next = curr;
+        }
+        return curr[r];
     }
 };
