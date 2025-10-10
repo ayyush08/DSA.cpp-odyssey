@@ -83,3 +83,44 @@ public:
 
 // Time Complexity: O(n)
 // Space Complexity: O(n) for storing next and previous smaller elements
+
+// What if we do not want to precompute next and previous smaller elements? - do pse on the fly and treat current element as nse for all elements in stack
+
+class Solution
+{
+public:
+    int largestRectangleArea(vector<int> &heights)
+    {
+        int n = heights.size();
+        stack<int> st;
+        int ans = 0;
+        for (int i = 0; i < n; i++)
+        {
+            while (!st.empty() && heights[st.top()] >= heights[i])
+            {
+                int ele = st.top();
+                st.pop();
+                int nse = i;
+                int pse = st.empty() ? -1 : st.top();
+                int area = (nse - pse - 1) * heights[ele];
+                ans = max(ans, area);
+            }
+            st.push(i);
+        }
+        while (!st.empty()) //leftover (probably boundary elements)
+        {
+            int nse = n;
+            int ele = st.top();
+            st.pop();
+
+            int pse = st.empty() ? -1 : st.top();
+
+            int area = (nse - pse - 1) * heights[ele];
+            ans = max(area, ans);
+        }
+        return ans;
+    }
+};
+
+// Time Complexity: O(n)
+// Space Complexity: O(n) for stack
