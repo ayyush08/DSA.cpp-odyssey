@@ -64,7 +64,7 @@ public:
 
 // Optimal - O(n) Time and O(1) Space
 
-class Solution
+class Solution2
 {
 public:
     int trap(vector<int> &height)
@@ -96,6 +96,36 @@ public:
                     rmax = height[r];
                 r--;
             }
+        }
+        return ans;
+    }
+};
+
+// Another Approach - Using Stack - O(n) Time and O(n) Space
+class Solution3
+{
+public:
+    int trap(vector<int> &height)
+    {
+        int n = height.size();
+        stack<int> st; // stores indices
+        int ans = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            // while current height is greater than height of top of stack
+            while (!st.empty() && height[i] > height[st.top()])
+            {
+                int top = st.top();
+                st.pop();
+                if (st.empty())
+                    break; // no left boundary
+
+                int distance = i - st.top() - 1; // width between left & right walls
+                int bounded_height = min(height[i], height[st.top()]) - height[top];
+                ans += distance * bounded_height;
+            }
+            st.push(i);
         }
         return ans;
     }
