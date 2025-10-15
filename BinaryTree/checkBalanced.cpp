@@ -20,6 +20,7 @@ struct TreeNode
     TreeNode(int val) : data(val), left(nullptr), right(nullptr) {}
 };
 
+// Brute Force Approach O(n^2)
 class Solution
 {
 public:
@@ -47,7 +48,8 @@ public:
     }
 };
 
-int main(){
+int main()
+{
     TreeNode *root = new TreeNode(3);
     root->left = new TreeNode(9);
     root->right = new TreeNode(20);
@@ -58,3 +60,28 @@ int main(){
     cout << obj.isBalanced(root) << endl;
     return 0;
 }
+
+// Optimal Approach O(n)
+
+class Solution
+{
+public:
+    int check(TreeNode *root)
+    {
+        if (!root)
+            return 0;
+
+        int left = check(root->left);
+        if (left == -1)
+            return -1;
+        int right = check(root->right);
+        if (right == -1)
+            return -1;
+        int diff = abs(right - left);
+        return diff <= 1 ? 1 + max(left, right) : -1;
+    }
+    bool isBalanced(TreeNode *root)
+    {
+        return check(root) != -1;
+    }
+};
