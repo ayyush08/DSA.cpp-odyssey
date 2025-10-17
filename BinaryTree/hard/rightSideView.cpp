@@ -65,3 +65,54 @@ public:
         return ans;
     }
 };
+
+// Time Complexity: O(N) where N is number of nodes in the tree
+// Space Complexity: O(N) for queue data structure
+
+// Optimal Approach:
+//  We can also do a modified pre-order traversal (root-right-left) and keep track of the level of each node. Whenever we reach a new level for the first time, we add that node's value to our result list. This way, we ensure that we always capture the rightmost node at each level.
+
+class Solution
+{
+public:
+    void func(TreeNode *root, int level, vector<int> &ans)
+    {
+        if (!root)
+            return;
+        if (ans.size() == level)
+            ans.push_back(root->val);
+        func(root->right, level + 1, ans);
+        func(root->left, level + 1, ans);
+    }
+    vector<int> rightSideView(TreeNode *root)
+    {
+        vector<int> ans;
+        if (!root)
+            return ans;
+        func(root, 0, ans);
+        return ans;
+    }
+};
+
+//LEFT SIDE VIEW
+class Solution
+{
+public:
+    void func(TreeNode *root, int level, vector<int> &ans)
+    {
+        if (!root)
+            return;
+        if (ans.size() == level)
+            ans.push_back(root->val);
+        func(root->left, level + 1, ans);
+        func(root->right, level + 1, ans);
+    }
+    vector<int> leftSideView(TreeNode *root)
+    {
+        vector<int> ans;
+        if (!root)
+            return ans;
+        func(root, 0, ans);
+        return ans;
+    }
+};
