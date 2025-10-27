@@ -19,7 +19,7 @@
             if (parent[v] != v)
                 return find(parent[v]); // recursive search for the root of the set with complexity O(N)
             // or
-            return parent[v] = find(parent[v]); // path compression (reduces complexity to O(N*log(N)))
+            return parent[v] = v; // path compression (reduces complexity to O(N*log(N)))
         }
         void merge(int a, int b)
         { // merge two sets
