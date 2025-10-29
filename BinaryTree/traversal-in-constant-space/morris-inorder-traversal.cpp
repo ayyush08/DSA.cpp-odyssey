@@ -37,7 +37,7 @@ public:
             if (!curr->left)
             {
                 inorder.push_back(curr->data); // Push when there is no left subtree
-                curr = curr->right;
+                curr = curr->right;//threaded movement back to root
             }
             else
             {
