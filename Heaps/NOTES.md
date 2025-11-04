@@ -109,3 +109,13 @@ void heapify-up(arr,ind){
 - Space Complexity: O(1) for iterative implementation, O(log n) for recursive implementation due to call stack.
 
 NOTE: Above Psuedo-code works for Max-Heap. For Min-Heap, just change the comparison operators accordingly.
+
+
+# Heap Sort
+
+## Steps
+
+1. Build a max-heap from the input data.
+2. The largest item is stored at the root of the heap. Replace it with the last
+    item of the heap followed by reducing the size of heap by one. Finally,
+    heapify the root of the tree. (the extractMax operation)

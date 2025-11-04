@@ -59,7 +59,7 @@ public:
 int main()
 {
     Solution sol;
-    vector<int> nums = {5,2,3,1};
+    vector<int> nums = {5, 2, 3, 1};
     vector<int> res = sol.sortArray(nums);
     for (int i = 0; i < res.size(); i++)
     {
@@ -69,3 +69,50 @@ int main()
 }
 
 // For descending order, create a Min heap and delete the root element of the heap and store it in the last index of the array. Then heapify the remaining elements of the heap. Repeat this process until the heap size becomes 0.
+
+
+//Alternate smaller code
+
+class Solution2
+{
+public:
+    void buildMaxHeap(vector<int> &nums)
+    {
+        int n = nums.size();
+        for (int i = n / 2 - 1; i >= 0; i--)
+            heapifyDown(nums, n - 1, i);
+    }
+    void heapifyDown(vector<int> &nums, int n, int i)
+    {
+        int largest = i;
+        int leftChild = 2 * i + 1;
+        int rightChild = 2 * i + 2;
+
+        if (leftChild <= n && nums[leftChild] > nums[largest])
+            largest = leftChild;
+        if (rightChild <= n && nums[rightChild] > nums[largest])
+            largest = rightChild;
+
+        if (largest != i)
+        {
+            swap(nums[largest], nums[i]);
+            heapifyDown(nums, n, largest);
+        }
+    }
+    void heapSort(vector<int> &nums)
+    {
+        buildMaxHeap(nums);
+
+        int end = nums.size() - 1;
+
+        while (end)
+        {
+            swap(nums[0], nums[end]);
+            end--;
+            if (end)
+                heapifyDown(nums, end, 0);
+        }
+    }
+};
+
+//Time COmplexity - O(nlogn)
