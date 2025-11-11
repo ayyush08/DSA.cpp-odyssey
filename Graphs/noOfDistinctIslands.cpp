@@ -69,3 +69,57 @@ int main()
     cout << obj.countDistinctIslands(grid) << endl;
     return 0;
 }
+
+// Time Complexity: O(N*M*log(N*M))
+// Space Complexity: O(N*M)
+
+// Optimal Approach: Use unordered_set with taking coordinates as string to reduce the logarithmic factor in time complexity due to ordered set.
+
+class Solution
+{
+public:
+    int m;
+    int n;
+    vector<int> dir = {0, 0, -1, 1};
+    vector<int> dic = {1, -1, 0, 0};
+    void dfs(int r, int c, vector<vector<int>> &grid,
+             vector<vector<bool>> &visited, int br, int bc,
+             string &temp)
+    {
+        visited[r][c] = true;
+        temp += to_string(r - br) + "," + to_string(c - bc);
+
+        for (int i = 0; i < 4; i++)
+        {
+            int nr = dir[i] + r;
+            int nc = dic[i] + c;
+
+            if (nr < m && nc < n && nr >= 0 && nc >= 0 && !visited[nr][nc] && grid[nr][nc] == 1)
+            {
+                dfs(nr, nc, grid, visited, br, bc, temp);
+            }
+        }
+    }
+    int countDistinctIslands(vector<vector<int>> &grid)
+    {
+        m = grid.size();
+        n = grid[0].size();
+
+        vector<vector<bool>> visited(m, vector(n, false));
+        unordered_set<string> st;
+
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                if (grid[i][j] == 1 && !visited[i][j])
+                {
+                    string rep;
+                    dfs(i, j, grid, visited, i, j, rep);
+                    st.insert(rep);
+                }
+            }
+        }
+        return st.size();
+    }
+};
