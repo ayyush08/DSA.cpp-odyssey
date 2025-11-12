@@ -123,3 +123,8 @@ int main()
 
     return 0;
 }
+
+// Why does topological sort only exist in DAG?
+
+// If the edges are undirected: An undirected edge between node u and v signifies an edge from u to v (u->v) as well as from v to u (v->u) making it practically impossible to write such orderings where u appears before v and v appears before u simultaneously.
+// If the directed graph contains a cycle: There is no linear ordering possible for nodes in cycles, making it impossible for topological sorting to exist.
