@@ -26,3 +26,13 @@ The final array after all updates is `A = [0, 5, 15, 15, 10]`.
 ## Advantages
 - **Efficiency**: The difference array method allows for O(1) time complexity for range updates, making it significantly faster than updating each element individually.
 - **Simplicity**: The method is straightforward to implement and understand, making it a useful technique for problems involving multiple range updates.
+
+
+## Difference array for 2-D arrays
+Suppose we have a query with [r1,c1,r2,c2] and we want to add val to all elements in the submatrix defined by the corners (r1,c1) and (r2,c2). We can use a 2-D difference array D to perform this operation efficiently.
+
+Simple iterate from r1 to r2 inclusive:
+- add val to D[i][c1]
+- subtract val from D[i][c2 + 1] (if c2 + 1 is within bounds)
+
+After processing all queries, we can compute the final values in the original 2-D array by calculating the prefix sums for each row of the difference array D.
