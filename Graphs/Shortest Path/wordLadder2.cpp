@@ -23,15 +23,13 @@
 // Following is the only shortest way to get to the targetWord from the startWord :
 // "gedk" -> ( replace ‘d’ by ‘e’ ) -> "geek".
 
-
-//APPROACH - We will use a Breadth-First Search (BFS) approach to find the shortest transformation sequences. 
-// We will use a queue to store the current sequence of words and a set to keep track of the words that have been used at the current level of BFS. 
-// For each word in the queue, we will generate all possible transformations by changing one letter at a time and check if the transformed word is in the word list. 
-// If it is, we will add the transformed word to the current sequence and push the new sequence to the queue. 
-// We will also keep track of the level of BFS and erase the words that have been used at the current level from the word list to avoid cycles. 
-// If we reach the target word, we will add the current sequence to the answer list. 
-// We will continue this process until the queue is empty.
-
+// APPROACH - We will use a Breadth-First Search (BFS) approach to find the shortest transformation sequences.
+//  We will use a queue to store the current sequence of words and a set to keep track of the words that have been used at the current level of BFS.
+//  For each word in the queue, we will generate all possible transformations by changing one letter at a time and check if the transformed word is in the word list.
+//  If it is, we will add the transformed word to the current sequence and push the new sequence to the queue.
+//  We will also keep track of the level of BFS and erase the words that have been used at the current level from the word list to avoid cycles.
+//  If we reach the target word, we will add the current sequence to the answer list.
+//  We will continue this process until the queue is empty.
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -40,7 +38,7 @@ class Solution
 {
 public:
     vector<vector<string>> findSequences(string beginWord, string endWord,
-                                            vector<string> &wordList)
+                                         vector<string> &wordList)
     {
         unordered_set<string> st(wordList.begin(), wordList.end());
         vector<vector<string>> ans;
@@ -90,20 +88,92 @@ public:
     }
 };
 
-int main() {
-    Solution sol;
-    string startWord = "der";
-    string targetWord = "dfs";
-    vector<string> wordList = {"des", "der", "dfr", "dgt", "dfs"};
-    
-    vector<vector<string>> sequences = sol.findSequences(startWord, targetWord, wordList);
-    
-    for (const auto& seq : sequences) {
-        for (const auto& word : seq) {
-            cout << word << " ";
+
+// Time Complexity: O(N * M^2), where N is the number of words in the word list and M is the length of each word.
+// Space Complexity: O(N * M), for storing the words in the queue and the set
+
+// This will give TLE/MLE on leetcode for large test cases.
+
+// To optimize further, we can first collect needed steps per valid word in a map using same method as word ladder 1 with bfs, then backtrack from endWord to startWord using the map to get all sequences in dfs manner.
+
+class Solution
+{
+public:
+    unordered_map<string, int> mp;
+    vector<vector<string>> ans;
+    void dfs(string word, vector<string> &temp, string &beginWord)
+    {
+        if (word == beginWord)
+        {
+            reverse(temp.begin(), temp.end());
+            ans.push_back(temp);
+            reverse(temp.begin(), temp.end());
+            return;
         }
-        cout << endl;
+        int steps = mp[word];
+        int size = word.size();
+        for (int i = 0; i < size; i++)
+        {
+            char org = word[i];
+            for (char c = 'a'; c <= 'z'; c++)
+            {
+                if (c == org)
+                    continue;
+                word[i] = c;
+                if (mp.count(word) && mp[word] + 1 == steps)
+                {
+                    temp.push_back(word);
+                    dfs(word, temp, beginWord);
+                    temp.pop_back();
+                }
+            }
+            word[i] = org;
+        }
     }
-    
-    return 0;
-}
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string> &wordList)
+    {
+        unordered_set<string> st(wordList.begin(), wordList.end());
+        if (!st.count(endWord))
+            return {};
+        queue<string> q;
+        q.push(beginWord);
+        mp[beginWord] = 1;
+        int size = beginWord.size();
+        st.erase(beginWord);
+        while (q.size())
+        {
+            string word = q.front();
+            q.pop();
+            if (word == endWord)
+                break;
+            int steps = mp[word];
+            for (int i = 0; i < size; i++)
+            {
+                char org = word[i];
+                for (char c = 'a'; c <= 'z'; c++)
+                {
+                    if (c == org)
+                        continue;
+                    word[i] = c;
+                    if (st.count(word))
+                    {
+                        q.push(word);
+                        st.erase(word);
+                        mp[word] = steps + 1;
+                    }
+                }
+                word[i] = org;
+            }
+        }
+        if (mp.find(endWord) != mp.end())
+        {
+            vector<string> temp;
+            temp.push_back(endWord);
+            dfs(endWord, temp, beginWord);
+        }
+        return ans;
+    }
+};
+
+//Time Complexity: O(N * M*26), where N is the number of words in the word list and M is the length of each word.
+//Space Complexity: O(N * M), for storing the words in the queue and the map

@@ -91,3 +91,18 @@ int main()
     cout << obj.findOrder(dict, N, K) << endl;
     return 0;
 }
+
+// Time Complexity: O(K+N) (where K and N represents the number of nodes and edges in the given graph)
+
+// Forming the graph takes O(N*len) time, where len is the average length of a word in the dictionary.
+// Finding topological sort takes O(K+N) time.
+// Space Complexity: O(K+N)
+
+// Storing the graph takes O(N) space.
+// Topological sorting algorithm uses extra O(K) computational space.
+
+// Follow-up question for interview:
+
+// When is the ordering of letters not possible:
+// If every character matches and the largest word appears before the shortest word: For example, if “abcd” appears before “abc”, we can say the ordering is not possible.
+// If there exists a cyclic dependency between the characters: For example, in the dictionary: dict: {“abc”, “bat”, “ade”} there exists a cyclic dependency between 'a' and 'b' because the dictionary states 'a' < 'b' < 'a', which is not possible.
