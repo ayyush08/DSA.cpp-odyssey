@@ -27,9 +27,9 @@ public:
             return false;
 
         char c = board[i][j];
-        board[i][j] = ' ';// mark as visited
+        board[i][j] = ' '; // mark as visited
         bool ans = false;
-        //check all four directions
+        // check all four directions
         ans |= check(board, word, i + 1, j, k + 1);
         ans |= check(board, word, i - 1, j, k + 1);
         ans |= check(board, word, i, j + 1, k + 1);
@@ -59,3 +59,58 @@ public:
 // Time Complexity : O(N * M * 4^L) where N is rows, M is columns and L is the word length; recursive search through board.
 
 // Space Complexity : O(L) due to recursive call stack depth, where L is the length of the word.
+
+// Code 2
+
+class Solution
+{
+public:
+    int m;
+    int n;
+    vector<int> dir = {-1, 1, 0, 0};
+    vector<int> dic = {0, 0, 1, -1};
+    bool isValid(int i, int j)
+    {
+        return (i >= 0 && j >= 0 && i < m && j < n);
+    }
+    bool func(int r, int c, vector<vector<char>> &board, int wid, string &word, vector<vector<bool>> &visited)
+    {
+        if (visited[r][c] || board[r][c] != word[wid])
+            return false;
+        if (wid == word.size() - 1)
+            return true;
+        visited[r][c] = true;
+        for (int i = 0; i < 4; i++)
+        {
+            int nr = r + dir[i];
+            int nc = c + dic[i];
+            if (isValid(nr, nc))
+            {
+                if (func(nr, nc, board, wid + 1, word, visited))
+                    return true;
+            }
+        }
+        visited[r][c] = false;
+        return false;
+    }
+    bool exist(vector<vector<char>> &board, string word)
+    {
+        m = board.size();
+        n = board[0].size();
+        bool ans = false;
+        int wid = 0;
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                vector<vector<bool>> visited(m, vector<bool>(n, false));
+                if (!visited[i][j])
+                {
+                    if (func(i, j, board, wid, word, visited))
+                        return true;
+                }
+            }
+        }
+        return ans;
+    }
+};
