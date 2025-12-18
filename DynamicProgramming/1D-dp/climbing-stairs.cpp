@@ -23,7 +23,7 @@
 // 2) 2 steps + 1 step
 
 // 3) 1 step + 2 steps
-
+w    s
 #include <bits/stdc++.h>
 using namespace std;
 

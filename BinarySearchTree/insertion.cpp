@@ -19,8 +19,7 @@ public:
                 if(temp->right!=NULL) temp=temp->right;
                 else{
                     temp->right=new TreeNode(val);
-                    break;
-            
+                    break;              
             }
         }
         else {
