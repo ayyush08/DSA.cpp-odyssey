@@ -52,3 +52,13 @@ An edge (u, v) is a bridge if `low[v] > tin[u]`, meaning v and its descendants c
 6. Check condition `low[neighbor] > tin[current_node]` to identify bridges
 7. Return the list of identified bridges
 
+
+# Articulation Points
+A vertex of a graph is called a Articulation point when the component is divided into 2 or more components if that particular vertex is removed. Removing a vertex means to also remove all the edges that share the vertex.
+
+### Discovery and Low Times
+
+| Array | Purpose |
+|-------|---------|
+| **Discovery Time** | Time when a node is first visited during DFS (unique, incremental) |
+| **Lowest Time** | Minimum discovery time reachable from a node, considering descendants and back edges apart from the parent node and visitor nodes |
