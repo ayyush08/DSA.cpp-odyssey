@@ -73,8 +73,8 @@ public:
         vector<vector<int>> visited(m, vector<int>(n, 0));
         int cnt = 0;
         vector<int> ans;
-        vector<int> dir = {-1, 1, 0, 0};
-        vector<int> dic = {0, 0, 1, -1};
+            vector<int> dir = {-1, 1, 0, 0};
+            vector<int> dic = {0, 0, 1, -1};
         for (auto query : A)
         {
             int r = query[0];
