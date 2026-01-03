@@ -1,52 +1,81 @@
 # Trie
 
-A Trie (pronounced "try") is a tree-like data structure that is used to store a dynamic set of strings, where the keys are usually strings. It is particularly useful for tasks such as autocomplete, spell checking, and IP routing.
-Edges in a Trie represent characters, and each path from the root to a node represents a prefix of a string.
-Mark the end of a string with a special marker (often `None` or a specific character).
+A **Trie** (pronounced "try") is a tree structure used to store strings efficiently.
 
-This way space used is very efficient, especially when many strings share common prefixes.
+**Key Points:**
+- Each node has 26 pointers (for 'a' to 'z')
+- Each path from root to a node represents a prefix
+- A boolean flag marks if a node is the end of a complete word
+- Great for autocomplete, spell check, and prefix searches
 
+**Time Complexity:**
+- Insert: O(length of word)
+- Search: O(length of word)
+- Starts With: O(length of prefix)
 
 ```cpp
+#include <bits/stdc++.h>
+using namespace std;
 
 struct Node{
-    int children[26];
-    bool isEnd = false; // true if this node marks the end of a string
-    void init(){
-        fill(children, children + 26, -1); 
+    Node *links[26];
+    bool isEnd = false;
+    
+    bool containsKey(char c){
+        return links[c-'a'] != NULL;
+    }
+    void put(char c, Node* node){
+        links[c-'a'] = node;
+    }
+    Node* get(char c){
+        return links[c-'a'];
+    }
+    void setEnd(){
+        isEnd = true;
+    }
+    bool isEnding(){
+        return isEnd;
     }
 };
 
-struct Trie{
-    vector<Node> trie;
-    void init(){
-        Node root;
-        root.init();
-        trie.push_back(root);
+class Trie{
+private:
+    Node* root;
+    
+public:
+    Trie(){
+        root = new Node();
     }
-    void insert(string &s){
-        int r = 0; // root index
-        for(char c: s){
-            int idx = c - 'a'; 
-            if(trie[r].children[idx] == -1){
-                trie[r].children[idx] = trie.size();
-                Node temp;
-                temp.init();
-                trie.push_back(temp);
+    
+    void insert(string word) {
+        Node* node = root;
+        for(int i = 0; i < word.size(); i++){
+            if(!node->containsKey(word[i])){
+                node->put(word[i], new Node());
             }
-            r = trie[r].children[idx];
+            node = node->get(word[i]); // move to next node
         }
-        trie[r].isEnd = true; // mark the end of the string
+        node->setEnd();
     }
-    bool search(string &s){
-        int r = 0; // root index
-        for(char c: s){
-            int idx = c - 'a';
-            if(trie[r].children[idx] == -1) return false; // character not found
-            r = trie[r].children[idx];
+    
+    bool search(string word) {
+        Node* node = root;
+        for(int i = 0; i < word.size(); i++){
+            if(!node->containsKey(word[i])){
+                return false;
+            }
+            node = node->get(word[i]);
         }
-        return trie[r].isEnd; // return true if this node marks the end of a string
+        return node->isEnding();
+    }
+    
+    bool startsWith(string prefix) {
+        Node* node = root;
+        for(int i = 0; i < prefix.size(); i++){
+            if(!node->containsKey(prefix[i])) return false;
+            node = node->get(prefix[i]);
+        }
+        return true;
     }
 };
-
 ```

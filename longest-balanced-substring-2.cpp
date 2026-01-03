@@ -86,3 +86,12 @@ public:
         return ans;
     }
 };
+
+
+int main()
+{
+    Solution sol;
+    string s = "abcabc";
+    cout << sol.longestBalanced(s) << endl; // Output: 6
+    return 0;
+}
