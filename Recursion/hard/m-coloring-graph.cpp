@@ -26,7 +26,7 @@ public:
     {
         for (auto it : adj[node])
         {
-            if (colors[it] == i) //adjacent node has the same color , cannot color
+            if (colors[it] == i) // adjacent node has the same color , cannot color
                 return false;
         }
         return true;
@@ -36,12 +36,12 @@ public:
         if (n == node)
             return true;
 
-        for (int i = 1; i <= m; i++) //check all colors
+        for (int i = 1; i <= m; i++) // check all colors
         {
             if (isPossible(i, node, colors, adj))
             {
                 colors[node] = i;
-                if (startColor(adj, colors, m, n, node + 1)) //check adjacent nodes with the current color
+                if (startColor(adj, colors, m, n, node + 1)) // check adjacent nodes with the current color
                     return true;
                 colors[node] = 0;
             }
