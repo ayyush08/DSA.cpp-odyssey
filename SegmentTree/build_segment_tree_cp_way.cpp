@@ -8,7 +8,7 @@ struct SegmentTree {
     int ne = 0; // neutral element for merge operation
     void init(int size){
         int n = 1;
-        while (n < size) n <<= 1; 
+        while (n < size) n <<= 1;  // next power of 2 for size
         value.assign(2 * n, ne); //0 for neutral element
     }
     void build(vector<int>& a, int lx, int rx, int x){
@@ -68,8 +68,8 @@ int main(){
     return 0;
 }
 
-//Time Complexity: O(n) as we build the tree in a single pass and the function gets called recursively for each node.
-//Space Complexity: O(n) for storing the segment tree values.
+//Time Complexity: O(log n) as we build the tree in a single pass and the function gets called recursively for each node.
+//Space Complexity: O(log n) for storing the segment tree values.
 
 
 
