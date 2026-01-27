@@ -19,6 +19,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 // Approach 1: Using a priority queue (max heap) with frequency count storage
+// Time Complexity: O(N log N) , Space Complexity: O(N)
 class Solution1
 {
 public:
@@ -44,6 +45,8 @@ public:
 };
 
 // Approach 2: Maintaining a min heap of size k
+// Time Complexity: O(N log k) , Space Complexity: O(N)
+
 class Solution2
 {
 public:
@@ -64,6 +67,36 @@ public:
         {
             ans.push_back(pq.top().second);
             pq.pop();
+        }
+        return ans;
+    }
+};
+
+// Approach 3: Using Bucket Sort
+// Time Complexity: O(N) , Space Complexity: O(N)
+
+class Solution
+{
+public:
+    vector<int> topKFrequent(vector<int> &nums, int k)
+    {
+        int n = nums.size();
+        unordered_map<int, int> freq;
+        for (int x : nums)
+            freq[x]++;
+        vector<vector<int>> bucket(n + 1);
+        for (auto &it : freq)
+            bucket[it.second].push_back(it.first);
+        vector<int> ans;
+        for (int i = n; i >= 0; i--)
+        {
+            if (!k)
+                break;
+            for (int val : bucket[i])
+            {
+                ans.push_back(val);
+                k--;
+            }
         }
         return ans;
     }
