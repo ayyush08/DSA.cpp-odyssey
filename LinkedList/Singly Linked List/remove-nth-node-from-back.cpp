@@ -55,7 +55,9 @@ struct ListNode
     }
 };
 
-
+// 1->2->3->4->5
+//s
+//->->f
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
@@ -76,7 +78,7 @@ public:
         while(fast->next){
             slow=slow->next;
             fast=fast->next;
-        }
+        }   
 
         ListNode* temp = slow->next;
         slow->next = slow->next->next;
