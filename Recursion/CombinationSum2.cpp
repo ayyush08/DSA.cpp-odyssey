@@ -35,59 +35,106 @@
 // Output:
 // [ [1, 2, 2] ]
 
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-class Solution {
+class Solution
+{
 public:
-void func(int ind,vector<vector<int>>&ans,vector<int>&temp,vector<int>&candidates,int sum){
-        if(sum==0){
+    void func(int ind, vector<vector<int>> &ans, vector<int> &temp, vector<int> &candidates, int sum)
+    {
+        if (sum == 0)
+        {
             ans.push_back(temp);
             return;
         }
-        if(sum<0) return;
-        if(ind==candidates.size()) return;
+        if (sum < 0)
+            return;
+        if (ind == candidates.size())
+            return;
         temp.push_back(candidates[ind]);
-        func(ind+1,ans,temp,candidates,sum-candidates[ind]);
+        func(ind + 1, ans, temp, candidates, sum - candidates[ind]);
         temp.pop_back();
 
-        for(int i=ind+1;i<candidates.size();i++){
-            if(candidates[i]!=candidates[ind]){
-                func(i,ans,temp,candidates,sum);
+        for (int i = ind + 1; i < candidates.size(); i++)
+        {
+            if (candidates[i] != candidates[ind])
+            {
+                func(i, ans, temp, candidates, sum);
                 break;
             }
         }
-
     }
-    vector<vector<int> > combinationSum2(vector<int>& candidates, int target) {
-        //your code goes here
-        sort(candidates.begin(),candidates.end());
-        vector<vector<int>>ans;
-        vector<int>temp;
-        func(0,ans,temp,candidates,target);
+    vector<vector<int>> combinationSum2(vector<int> &candidates, int target)
+    {
+        // your code goes here
+        sort(candidates.begin(), candidates.end());
+        vector<vector<int>> ans;
+        vector<int> temp;
+        func(0, ans, temp, candidates, target);
         return ans;
     }
 };
 
-int main(){
+int main()
+{
     int n;
-    cin>>n;
-    vector<int>candidates(n);
-    for(int i=0;i<n;i++){
-        cin>>candidates[i];
+    cin >> n;
+    vector<int> candidates(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> candidates[i];
     }
     int target;
-    cin>>target;
+    cin >> target;
     Solution obj;
-    vector<vector<int>>ans=obj.combinationSum2(candidates,target);
-    for(int i=0;i<ans.size();i++){
-        cout<<"[ ";
-        for(int j=0;j<ans[i].size();j++){
-            cout<<ans[i][j]<<" ";
+    vector<vector<int>> ans = obj.combinationSum2(candidates, target);
+    for (int i = 0; i < ans.size(); i++)
+    {
+        cout << "[ ";
+        for (int j = 0; j < ans[i].size(); j++)
+        {
+            cout << ans[i][j] << " ";
         }
-        cout<<"] ";
+        cout << "] ";
     }
     return 0;
 }
 
 // Time Complexity: O(2^N*N) - due to sorting
 // Space Complexity: O(N) - due to recursion stack
+
+// Other Approach: Skip duplicates on the way forward itself
+
+class Solution
+{
+public:
+    void solve(int idx, vector<vector<int>> &ans, vector<int> &temp, vector<int> &candidates, int sum)
+    {
+        if (sum == 0)
+        {
+            ans.push_back(temp);
+            return;
+        }
+        if (sum < 0)
+            return;
+        if (idx == candidates.size())
+            return;
+        for (int j = idx; j < candidates.size(); j++)
+        {
+            if (j > idx && candidates[j] == candidates[j - 1])
+                continue;
+            temp.push_back(candidates[j]);
+            solve(j + 1, ans, temp, candidates, sum - candidates[j]);
+            temp.pop_back();
+            // solve(j,ans,temp,candidates,sum);
+        }
+    }
+    vector<vector<int>> combinationSum2(vector<int> &candidates, int target)
+    {
+        vector<vector<int>> ans;
+        vector<int> temp;
+        sort(candidates.begin(), candidates.end());
+        solve(0, ans, temp, candidates, target);
+        return ans;
+    }
+};

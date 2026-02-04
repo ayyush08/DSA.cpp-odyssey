@@ -14,49 +14,76 @@
 // Output:
 // [ [ ], [1] , [1, 3] , [1, 3, 3] , [3] , [3, 3] ]
 
-
 #include <bits/stdc++.h>
 using namespace std;
-class Solution {
+class Solution
+{
 public:
-    void func(int ind, vector<int>& temp, vector<vector<int>>& ans,vector<int>& nums ){
-        if(ind==nums.size()){
+    void func(int ind, vector<int> &temp, vector<vector<int>> &ans, vector<int> &nums)
+    {
+        if (ind == nums.size())
+        {
             ans.push_back(temp);
             return;
         }
         temp.push_back(nums[ind]);
-        func(ind+1,temp,ans,nums);
+        func(ind + 1, temp, ans, nums);
         temp.pop_back();
-        for(int i=ind+1;i<nums.size();i++){
-            if(nums[i]!=nums[ind]){
-                func(i,temp,ans,nums);
+        for (int i = ind + 1; i < nums.size(); i++) //skip duplicates
+        {
+            if (nums[i] != nums[ind])
+            {
+                func(i, temp, ans, nums);
                 return;
             }
         }
-        func(nums.size(),temp,ans,nums);
+        func(nums.size(), temp, ans, nums);
     }
-    vector<vector<int> > subsetsWithDup(vector<int>& nums) {
-        //your code goes here
+    //Another better approach for backtracking (keep moving forward and skip duplicates)
+    void solve(int idx, vector<int> &nums, vector<int> &temp,
+               vector<vector<int>> &ans)
+    {
+
+        ans.push_back(temp);
+
+        for (int i = idx; i < nums.size(); i++)
+        {
+
+            if (i > idx && nums[i] == nums[i - 1])
+                continue;
+
+            temp.push_back(nums[i]);
+            solve(i + 1, nums, temp, ans);
+            temp.pop_back();
+        }
+    }
+    vector<vector<int>> subsetsWithDup(vector<int> &nums)
+    {
+        // your code goes here
         vector<vector<int>> ans;
-        vector<int>temp;
-        sort(nums.begin(),nums.end());
-        func(0,temp,ans,nums);
+        vector<int> temp;
+        sort(nums.begin(), nums.end());
+        func(0, temp, ans, nums);
         return ans;
     }
 };
-int main(){
+int main()
+{
     int n;
-    cin>>n;
-    vector<int>nums(n);
-    for(int i=0;i<n;i++){
-        cin>>nums[i];
+    cin >> n;
+    vector<int> nums(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> nums[i];
     }
     Solution ob;
-    vector<vector<int>>ans=ob.subsetsWithDup(nums);
-    for(int i=0;i<ans.size();i++){
-        for(int j=0;j<ans[i].size();j++){
-            cout<<ans[i][j]<<" ";
+    vector<vector<int>> ans = ob.subsetsWithDup(nums);
+    for (int i = 0; i < ans.size(); i++)
+    {
+        for (int j = 0; j < ans[i].size(); j++)
+        {
+            cout << ans[i][j] << " ";
         }
-        cout<<endl;
+        cout << endl;
     }
 }

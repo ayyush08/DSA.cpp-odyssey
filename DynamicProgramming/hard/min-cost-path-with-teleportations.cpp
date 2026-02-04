@@ -248,7 +248,7 @@ public:
 
             for (int i = 1; i < teleportCost.size(); i++)
             {
-                teleportCost[i] = min(teleportCost[i], teleportCost[i - 1]);
+                teleportCost[i] = min(teleportCost[i], teleportCost[i - 1]); // Prefix min because a if cell A can teleport to cell B, then any cell with value <= B can also teleport to B so we need to maintain min till now to avoid missing invalid teleports
             }
         }
 

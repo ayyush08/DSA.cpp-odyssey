@@ -82,7 +82,7 @@ public:
             return dp[i][sum];
 
         long long notTake = func(nums, dp, i - 1, sum);
-        notTake += func(nums, dp, i - 1, sum) % mod;
+        notTake += func(nums, dp, i - 1, sum) % mod; //twice to account for both not taking current element in subsequence and excluding it altogether
         long long take = 0;
         if (nums[i] <= sum)
         {
