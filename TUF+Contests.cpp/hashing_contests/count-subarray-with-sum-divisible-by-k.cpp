@@ -32,20 +32,20 @@ class Solution
 public:
     int subarraySumDivisbleByK(vector<int> &nums, int k)
     {
-        unordered_map<int, int> mp;
-        int sum = 0, cnt = 0;
-        mp[0] = 1;
-        for (int i = 0; i < nums.size(); i++)
-        {
-            sum += nums[i];
-            int rem = sum % k;
-            if (rem < 0)
-                rem += k; // To handle negative remainders, we adjust them to be in the range [0, k-1]
+            unordered_map<int, int> mp;
+            int sum = 0, cnt = 0;
+            mp[0] = 1;
+            for (int i = 0; i < nums.size(); i++)
+            {
+                sum += nums[i];
+                int rem = sum % k;
+                if (rem < 0)
+                    rem += k; // To handle negative remainders, we adjust them to be in the range [0, k-1]
 
-            cnt += mp[rem];
+                cnt += mp[rem];
 
-            mp[rem]++;
-        }
-        return cnt;
+                mp[rem]++;
+            }
+            return cnt;
     }
 };
