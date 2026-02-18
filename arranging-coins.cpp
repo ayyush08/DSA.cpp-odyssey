@@ -7,4 +7,9 @@
 // Constraints:
 // 1 <= n <= 2 31 - 1
 
-n
+class Solution {class Solution {
+public:public:
+    int arrangeCoins(int n) {    int arrangeCoins(int n) {
+        return floor(-0.5 + sqrt((double)2 * n + 0.25));        return floor(-0.5 + sqrt((double)2 * n + 0.25));
+    }    }
+};};
