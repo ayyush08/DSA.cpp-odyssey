@@ -34,18 +34,3 @@ public:public:
     vector<int>colorCodes;    vector<int>colorCodes;
     int n;    int n;
     long long func(vector<int>& nums, int i){    long long func(vector<int>& nums, int i){
-        if(i<0) return 0;        if(i<0) return 0;
-        if(i==0) return nums[0];        if(i==0) return nums[0];
-        if(dp[i]!=-1) return dp[i];        if(dp[i]!=-1) return dp[i];
-
-        long long rob = nums[i];        long long rob = nums[i];
-        if(colorCodes[i]!=colorCodes[i-1]) rob+=func(nums,i-1);        if(colorCodes[i]!=colorCodes[i-1]) rob+=func(nums,i-1);
-        else rob+=func(nums,i-2); //matching code        else rob+=func(nums,i-2); //matching code
-        long long dontRob = func(nums,i-1);        long long dontRob = func(nums,i-1);
-        return dp[i]  = max(rob,dontRob);        return dp[i]  = max(rob,dontRob);
-                
-    }    }
-    long long rob(vector<int>& nums, vector<int>& colors) {    long long rob(vector<int>& nums, vector<int>& colors) {
-        n = nums.size();        n = nums.size();
-        dp.assign(n,-1);        dp.assign(n,-1);
-        colorCodes = colors;        colorCodes = colors;
