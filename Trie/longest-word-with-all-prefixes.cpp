@@ -118,3 +118,6 @@ public:
         return longest.size() ? longest : "None";
     }
 };
+
+//Time Complexity: O(N * M) where N is the number of words and M is the average length of the words. This is because we insert each word into the trie and then check for prefixes, both of which take O(M) time.
+//Space Complexity: O(N * M) for storing the trie, where N is the number of words and M is the average length of the words. In the worst case, all words are unique and have no common prefixes, leading to a trie with N * M nodes.
