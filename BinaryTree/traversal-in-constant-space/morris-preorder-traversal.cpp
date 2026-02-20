@@ -53,7 +53,7 @@ public:
                     preorder.push_back(curr->data); // Push before going to left subtree
                     curr = curr->left;
                 }
-                else
+                else 
                 {
                     prev->right = NULL;
                     curr = curr->right;
