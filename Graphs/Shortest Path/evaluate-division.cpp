@@ -10,7 +10,6 @@
 // Note: The variables that do not occur in the list of equations are undefined, so the answer cannot be determined for them.
 
 // Example 1:
-
 // Input: equations = [["a","b"],["b","c"]], values = [2.0,3.0], queries = [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]
 // Output: [6.00000,0.50000,-1.00000,1.00000,-1.00000]
 // Explanation:
@@ -18,8 +17,8 @@
 // queries are: a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ?
 // return: [6.0, 0.5, -1.0, 1.0, -1.0 ]
 // note: x is undefined => -1.0
-// Example 2:
 
+// Example 2:
 // Input: equations = [["a","b"],["b","c"],["bc","cd"]], values = [1.5,2.5,5.0], queries = [["a","c"],["c","b"],["bc","cd"],["cd","bc"]]
 // Output: [3.75000,0.40000,5.00000,0.20000]
 // Example 3:
@@ -28,7 +27,6 @@
 // Output: [0.50000,2.00000,-1.00000,-1.00000]
 
 // Constraints:
-
 // 1 <= equations.length <= 20
 // equations[i].length == 2
 // 1 <= Ai.length, Bi.length <= 5
