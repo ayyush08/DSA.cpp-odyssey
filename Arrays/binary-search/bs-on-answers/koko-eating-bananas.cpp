@@ -46,7 +46,7 @@ public:
 
     int minimumRateToEatBananas(vector<int> nums, int h)
     {
-        int end = maxEle(nums);
+        int end = *max_element(nums.begin(), nums.end());
         int low = 1, high = end;
         while (low <= high)
         {

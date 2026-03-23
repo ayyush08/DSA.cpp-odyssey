@@ -46,7 +46,6 @@ public:
             return NULL;
         ListNode *slow = head;
         ListNode *fast = head;
-        int pos = 0;
         while (fast && fast->next)
         {
             slow = slow->next;
