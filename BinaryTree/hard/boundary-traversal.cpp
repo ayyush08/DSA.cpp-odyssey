@@ -29,7 +29,7 @@ struct TreeNode
     TreeNode(int val) : data(val), left(nullptr), right(nullptr) {}
 };
 
-    class Solution
+class Solution
 {
 public:
     bool isLeaf(TreeNode *root)
